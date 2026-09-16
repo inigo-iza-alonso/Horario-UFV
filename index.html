@@ -2,56 +2,183 @@
 <html lang="es"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Horario UFV 2026–2027</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#073f68">
 <style>
-:root{--navy:#063f68;--pink:#ca3766;--bg:#f3f5f7;--line:#d8e0e7;--text:#17232d;--free:#f8fafc;--disp:#fff3d4}
-*{box-sizing:border-box} html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
-header{background:linear-gradient(135deg,#063f68,#0d5a85);color:#fff;padding:27px 18px}
-.header{max-width:1500px;margin:auto}
-.kicker{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8}
-h1{font-size:clamp(29px,5vw,46px);margin:8px 0 4px;line-height:1.08}
-.sub{font-size:17px;opacity:.85}
-nav{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px;display:flex;gap:8px;overflow:auto}
-nav a{white-space:nowrap;text-decoration:none;color:var(--navy);font-weight:850;border:1px solid var(--line);border-radius:10px;padding:10px 15px}
-nav a:active,nav a:hover{background:var(--pink);color:white;border-color:var(--pink)}
-main{max-width:1500px;margin:18px auto 50px;padding:0 10px}
-section{scroll-margin-top:75px;margin-bottom:22px}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 6px 22px #123c5810}
-.head{padding:17px 19px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
-.head h2{margin:0;font-size:22px}
-.pill{background:#f8e6ed;color:var(--pink);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900}
-.scroller{overflow:auto;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;min-width:2150px;width:100%;table-layout:fixed}
-th,td{border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
-thead th{height:42px;background:var(--navy);color:#fff;font-size:10px;white-space:nowrap}
-thead .day-head{width:100px;position:sticky;left:0;z-index:7}
-tbody .day{width:100px;position:sticky;left:0;z-index:6;background:#edf2f6;color:var(--navy);text-align:left;padding-left:12px;font-size:13px;font-weight:900}
-td{height:70px;text-align:center;vertical-align:middle;padding:5px;min-width:68px}
-td.free{background:var(--free);color:#b4bec6;font-size:13px;font-weight:800}
-td.class{background:#fff;border:1px solid #c7d2db}
-.name{font-size:11px;font-weight:850;line-height:1.15}
-.meta{margin-top:5px;font-size:10px;color:#53636f}
-.meta b{color:var(--pink)}
-.legend{padding:12px 16px;color:#71808c;font-size:12px}
-.note{margin:14px 0;padding:13px 15px;border:1px solid #ecd38b;background:var(--disp);border-radius:11px;color:#755500;line-height:1.45}
-.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;padding:18px}
-.item{border:1px solid var(--line);border-radius:12px;padding:13px;background:#fff}
-.item b{display:block;margin-bottom:5px;font-size:14px}
-.item span{display:block;color:var(--pink);font-weight:850;font-size:13px}
-.item small{color:#71808c;font-size:12px}
-footer{max-width:1500px;margin:auto;padding:0 18px 35px;color:#71808c;font-size:12px}
-@media(max-width:600px){header{padding:23px 15px}h1{font-size:32px}main{padding:0 6px}}
+:root{--navy:#073f68;--pink:#ca3766;--bg:#f3f5f7;--line:#dde4ea;--text:#17232d;--muted:#5c6b76;--card:#fff;--chip-navy-bg:#e7eef4;--chip-pink-bg:#fbe8ee;--today:#fff8ea;--today-border:#e8b64a}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;font-size:16px;line-height:1.35}
+header{background:linear-gradient(135deg,var(--navy),#0d5a85);color:#fff;padding:22px 18px 20px}
+.header{max-width:1100px;margin:auto}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+h1{font-size:clamp(24px,6vw,34px);margin:6px 0 4px;line-height:1.12}
+.sub{font-size:15px;opacity:.88}
+.tabs{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px;display:flex;gap:8px;max-width:1100px;margin:auto}
+.tab{flex:1;text-align:center;padding:12px 10px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+main{max-width:1100px;margin:18px auto 50px;padding:0 14px}
+.panel{display:none}
+.panel.active{display:block}
+.panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.panel-head h2{margin:0;font-size:21px}
+.pill{background:var(--chip-pink-bg);color:var(--pink);padding:6px 12px;border-radius:999px;font-size:12px;font-weight:900;white-space:nowrap}
+.note{margin:0 0 16px;padding:12px 15px;border:1px solid #ecd38b;background:#fff3d4;border-radius:12px;color:#755500;font-size:13.5px;line-height:1.5}
+.days-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+.day-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 6px 18px #123c5810}
+.day-card.today{border-color:var(--today-border);box-shadow:0 6px 18px #e8b64a30}
+.day-head{background:var(--navy);color:#fff;padding:12px 16px;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:space-between}
+.day-card.today .day-head{background:linear-gradient(135deg,var(--navy),#a97b1e)}
+.today-badge{background:#fff;color:var(--navy);font-size:10px;font-weight:900;padding:3px 8px;border-radius:999px;letter-spacing:.04em}
+.class-item{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;gap:12px}
+.class-item:last-child{border-bottom:none}
+.class-item .time{min-width:96px;font-weight:800;color:var(--navy);font-size:14px;line-height:1.3}
+.class-item .body{flex:1;min-width:0}
+.class-item .name{font-weight:800;font-size:15px;line-height:1.3}
+.class-item .chips{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.chip{font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:999px}
+.chip.grupo{background:var(--chip-navy-bg);color:var(--navy)}
+.chip.aula{background:var(--chip-pink-bg);color:var(--pink)}
+.free-day{padding:16px;color:var(--muted);font-size:14px;font-style:italic}
+.summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.item{border:1px solid var(--line);border-radius:12px;padding:13px;background:var(--card)}
+.item b{display:block;margin-bottom:6px;font-size:14.5px}
+.item .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+.item small{color:var(--muted);font-size:12px}
+footer{max-width:1100px;margin:auto;padding:0 18px 35px;color:var(--muted);font-size:12px}
+@media(max-width:600px){header{padding:20px 15px 18px}main{padding:0 10px}.tabs{padding:8px 10px}}
 </style></head>
 <body>
-<header><div class="header"><div class="kicker">Universidad Francisco de Vitoria · Curso 2026–2027</div>
-<h1>Mi horario — Ingeniería Informática</h1><div class="sub">Matriz semanal · grupos y aulas</div></div></header>
-<nav><a href="#q1">1.º cuatrimestre</a><a href="#q2">2.º cuatrimestre</a><a href="#grupos">Asignaturas y grupos</a></nav>
+<header><div class="header">
+<div class="kicker">Universidad Francisco de Vitoria · Curso 2026–2027</div>
+<h1>Mi horario — Ingeniería Informática</h1>
+<div class="sub">Toca un cuatrimestre para ver tu semana</div>
+</div></header>
+<nav class="tabs">
+<button class="tab active" data-panel="q1">1.º cuatri</button>
+<button class="tab" data-panel="q2">2.º cuatri</button>
+<button class="tab" data-panel="grupos">Asignaturas</button>
+</nav>
 <main>
-<section id="q1"><div class="card"><div class="head"><h2>1.º cuatrimestre</h2><span class="pill">Fundamentos · DISPENSA</span></div>
-<div class="scroller"><table><thead><tr><th class="day-head">DÍA</th><th>08:00</th><th>08:30</th><th>09:00</th><th>09:30</th><th>10:00</th><th>10:30</th><th>11:00</th><th>11:30</th><th>12:00</th><th>12:30</th><th>13:00</th><th>13:30</th><th>14:00</th><th>14:30</th><th>15:00</th><th>15:30</th><th>16:00</th><th>16:30</th><th>17:00</th><th>17:30</th><th>18:00</th><th>18:30</th><th>19:00</th><th>19:30</th><th>20:00</th><th>20:30</th><th>21:00</th></tr></thead><tbody><tr><th class="day">Lunes</th><td class="class" colspan="4"><div class="name">Estructuras de Datos y Algoritmos</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Arquitectura y Organización de Computadores</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Interacción Persona Ordenador</div><div class="meta"><b>3A</b> · 0.1 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Inteligencia Artificial I</div><div class="meta"><b>3A</b> · 0.1 EG</div></td></tr><tr><th class="day">Martes</th><td class="class" colspan="4"><div class="name">Estructuras de Datos y Algoritmos</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Desarrollo e Integración de Software</div><div class="meta"><b>3A</b> · 0.1 EG</div></td><td class="class" colspan="4"><div class="name">Ética y Deontología Profesional</div><div class="meta"><b>3A</b> · 0.1 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr><tr><th class="day">Miércoles</th><td class="free">X</td><td class="free">X</td><td class="class" colspan="2"><div class="name">Informática Forense</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="class" colspan="4"><div class="name">Arquitectura y Organización de Computadores</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Interacción Persona Ordenador</div><div class="meta"><b>3A</b> · 0.1 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Desarrollo e Integración de Software</div><div class="meta"><b>3A</b> · 0.1 EG</div></td></tr><tr><th class="day">Jueves</th><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Arquitectura y Organización de Computadores</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Desarrollo e Integración de Software</div><div class="meta"><b>3A</b> · 0.1 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr><tr><th class="day">Viernes</th><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="3"><div class="name">Hacking Ético y Pentesting I</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr></tbody></table></div><div class="legend"><b>X</b> = libre · Las cajas muestran <b>asignatura · grupo · aula</b>.</div></div></section>
-<section id="q2"><div class="card"><div class="head"><h2>2.º cuatrimestre</h2><span class="pill">Electrónica · DISPENSA</span></div>
-<div class="scroller"><table><thead><tr><th class="day-head">DÍA</th><th>08:00</th><th>08:30</th><th>09:00</th><th>09:30</th><th>10:00</th><th>10:30</th><th>11:00</th><th>11:30</th><th>12:00</th><th>12:30</th><th>13:00</th><th>13:30</th><th>14:00</th><th>14:30</th><th>15:00</th><th>15:30</th><th>16:00</th><th>16:30</th><th>17:00</th><th>17:30</th><th>18:00</th><th>18:30</th><th>19:00</th><th>19:30</th><th>20:00</th><th>20:30</th><th>21:00</th></tr></thead><tbody><tr><th class="day">Lunes</th><td class="class" colspan="4"><div class="name">Bases de Datos</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="class" colspan="4"><div class="name">Programación Orientada a Objetos</div><div class="meta"><b>1A</b> · 1.5 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr><tr><th class="day">Martes</th><td class="class" colspan="4"><div class="name">Estadística</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="class" colspan="4"><div class="name">Programación Orientada a Objetos</div><div class="meta"><b>1A</b> · 1.5 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr><tr><th class="day">Miércoles</th><td class="class" colspan="4"><div class="name">Estadística</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Ingeniería del Software I (ISO I)</div><div class="meta"><b>2B</b> · 0.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Proyectos II</div><div class="meta"><b>3A</b> · 0.1 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr><tr><th class="day">Jueves</th><td class="free">X</td><td class="free">X</td><td class="class" colspan="2"><div class="name">Desarrollo Seguro S-SDLC - OWASP</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="class" colspan="4"><div class="name">Matemáticas para la Ingeniería II</div><div class="meta"><b>1A</b> · 1.5 EG</div></td><td class="class" colspan="4"><div class="name">Ingeniería del Software I (ISO I)</div><div class="meta"><b>2B</b> · 0.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr><tr><th class="day">Viernes</th><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="class" colspan="4"><div class="name">Matemáticas para la Ingeniería II</div><div class="meta"><b>1A</b> · 1.5 EG</div></td><td class="class" colspan="3"><div class="name">Hacking Ético y Pentesting II</div><div class="meta"><b>2A</b> · 1.2 EG</div></td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td><td class="free">X</td></tr></tbody></table></div><div class="legend"><b>X</b> = libre · Las cajas muestran <b>asignatura · grupo · aula</b>.</div></div>
-<div class="note"><b>Dispensas:</b> Fundamentos de Ingeniería Informática y Electrónica y Tecnología de Computadores.</div></section>
-<section id="grupos"><div class="card"><div class="head"><h2>Asignaturas · grupos · aulas</h2></div><div class="summary"><div class="item"><b>Fundamentos de Ingeniería Informática</b><span>1A · DISPENSA</span><small>1.º cuatrimestre</small></div><div class="item"><b>Estructuras de Datos y Algoritmos</b><span>2A · 1.2 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Arquitectura y Organización de Computadores</b><span>2A · 1.2 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Interacción Persona Ordenador</b><span>3A · 0.1 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Desarrollo e Integración de Software</b><span>3A · 0.1 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Ética y Deontología Profesional</b><span>3A · 0.1 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Inteligencia Artificial I</b><span>3A · 0.1 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Informática Forense</b><span>2A · 1.2 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Hacking Ético y Pentesting I</b><span>2A · 1.2 EG</span><small>1.º cuatrimestre</small></div><div class="item"><b>Programación Orientada a Objetos</b><span>1A · 1.5 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Matemáticas para la Ingeniería II</b><span>1A · 1.5 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Bases de Datos</b><span>2A · 1.2 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Estadística</b><span>2A · 1.2 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Ingeniería del Software I (ISO I)</b><span>2B · 0.2 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Proyectos II</b><span>3A · 0.1 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Desarrollo Seguro S-SDLC - OWASP</b><span>2A · 1.2 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Hacking Ético y Pentesting II</b><span>2A · 1.2 EG</span><small>2.º cuatrimestre</small></div><div class="item"><b>Electrónica y Tecnología de Computadores</b><span>1A · DISPENSA</span><small>2.º cuatrimestre</small></div></div></div></section>
-</main><footer>Horario personal · UFV · Curso 2026–2027</footer>
+<section id="q1" class="panel active">
+<div class="panel-head"><h2>1.º cuatrimestre</h2><span class="pill">Fundamentos · DISPENSA</span></div>
+<div class="note"><b>Dispensa:</b> Fundamentos de Ingeniería Informática (1A) — no tiene horario asignado.</div>
+<div id="q1-days" class="days-grid"></div>
+</section>
+<section id="q2" class="panel">
+<div class="panel-head"><h2>2.º cuatrimestre</h2><span class="pill">Electrónica · DISPENSA</span></div>
+<div class="note"><b>Dispensa:</b> Electrónica y Tecnología de Computadores (1A) — no tiene horario asignado.</div>
+<div id="q2-days" class="days-grid"></div>
+</section>
+<section id="grupos" class="panel">
+<div class="panel-head"><h2>Asignaturas · grupos · aulas</h2></div>
+<div id="grupos-list" class="summary"></div>
+</section>
+</main>
+<footer>Horario personal · UFV · Curso 2026–2027</footer>
+<script>
+const DIAS = ['Lunes','Martes','Miércoles','Jueves','Viernes'];
+
+const Q1 = {
+  pillLabel: 'Fundamentos · DISPENSA',
+  dispensa: 'Fundamentos de Ingeniería Informática (1A)',
+  clases: [
+    {dia:'Lunes', inicio:'08:00', fin:'10:30', asig:'Estructuras de Datos y Algoritmos', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Lunes', inicio:'12:00', fin:'14:30', asig:'Arquitectura y Organización de Computadores', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Lunes', inicio:'15:30', fin:'18:00', asig:'Interacción Persona Ordenador', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Lunes', inicio:'19:30', fin:'22:00', asig:'Inteligencia Artificial I', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Martes', inicio:'08:00', fin:'10:30', asig:'Estructuras de Datos y Algoritmos', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Martes', inicio:'15:00', fin:'17:30', asig:'Desarrollo e Integración de Software', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Martes', inicio:'17:30', fin:'20:00', asig:'Ética y Deontología Profesional', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Miércoles', inicio:'09:00', fin:'10:30', asig:'Informática Forense', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Miércoles', inicio:'15:30', fin:'18:00', asig:'Interacción Persona Ordenador', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Miércoles', inicio:'19:30', fin:'22:00', asig:'Desarrollo e Integración de Software', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Jueves', inicio:'12:00', fin:'14:30', asig:'Arquitectura y Organización de Computadores', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Jueves', inicio:'15:30', fin:'18:00', asig:'Desarrollo e Integración de Software', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Viernes', inicio:'12:00', fin:'14:00', asig:'Hacking Ético y Pentesting I', grupo:'2A', aula:'1.2 EG'},
+  ]
+};
+
+const Q2 = {
+  pillLabel: 'Electrónica · DISPENSA',
+  dispensa: 'Electrónica y Tecnología de Computadores (1A)',
+  clases: [
+    {dia:'Lunes', inicio:'08:00', fin:'10:30', asig:'Bases de Datos', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Lunes', inicio:'10:30', fin:'13:00', asig:'Programación Orientada a Objetos', grupo:'1A', aula:'1.5 EG'},
+    {dia:'Lunes', inicio:'17:30', fin:'20:00', asig:'Ética y Deontología Profesional', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Martes', inicio:'08:00', fin:'10:30', asig:'Estadística', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Martes', inicio:'10:30', fin:'13:00', asig:'Programación Orientada a Objetos', grupo:'1A', aula:'1.5 EG'},
+    {dia:'Miércoles', inicio:'08:00', fin:'10:30', asig:'Estadística', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Miércoles', inicio:'10:30', fin:'13:00', asig:'Ingeniería del Software I (ISO I)', grupo:'2B', aula:'0.2 EG'},
+    {dia:'Miércoles', inicio:'17:30', fin:'20:00', asig:'Proyectos II', grupo:'3A', aula:'0.1 EG'},
+    {dia:'Jueves', inicio:'09:00', fin:'10:30', asig:'Desarrollo Seguro S-SDLC - OWASP', grupo:'2A', aula:'1.2 EG'},
+    {dia:'Jueves', inicio:'10:30', fin:'13:00', asig:'Matemáticas para la Ingeniería II', grupo:'1A', aula:'1.5 EG'},
+    {dia:'Jueves', inicio:'13:00', fin:'15:30', asig:'Ingeniería del Software I (ISO I)', grupo:'2B', aula:'0.2 EG'},
+    {dia:'Viernes', inicio:'10:00', fin:'12:30', asig:'Matemáticas para la Ingeniería II', grupo:'1A', aula:'1.5 EG'},
+    {dia:'Viernes', inicio:'12:30', fin:'14:30', asig:'Hacking Ético y Pentesting II', grupo:'2A', aula:'1.2 EG'},
+  ]
+};
+
+function todayDiaName(){
+  const idx = new Date().getDay();
+  return idx>=1 && idx<=5 ? DIAS[idx-1] : null;
+}
+
+function renderDays(containerId, clases){
+  const hoy = todayDiaName();
+  const el = document.getElementById(containerId);
+  el.innerHTML = DIAS.map(dia => {
+    const items = clases.filter(c => c.dia === dia).sort((a,b) => a.inicio.localeCompare(b.inicio));
+    const isToday = dia === hoy;
+    const body = items.length
+      ? items.map(c => `
+        <div class="class-item">
+          <div class="time">${c.inicio}–${c.fin}</div>
+          <div class="body">
+            <div class="name">${c.asig}</div>
+            <div class="chips"><span class="chip grupo">${c.grupo}</span><span class="chip aula">${c.aula}</span></div>
+          </div>
+        </div>`).join('')
+      : `<div class="free-day">Sin clases</div>`;
+    return `<div class="day-card${isToday ? ' today' : ''}">
+      <div class="day-head"><span>${dia}</span>${isToday ? '<span class="today-badge">HOY</span>' : ''}</div>
+      ${body}
+    </div>`;
+  }).join('');
+}
+
+function renderGrupos(){
+  const entries = [];
+  const seen = new Set();
+  [[Q1.clases,'1.º cuatrimestre'], [Q2.clases,'2.º cuatrimestre']].forEach(([clases, cuatri]) => {
+    clases.forEach(c => {
+      const key = c.asig + '|' + cuatri;
+      if (seen.has(key)) return;
+      seen.add(key);
+      entries.push({asig:c.asig, grupo:c.grupo, aula:c.aula, cuatri});
+    });
+  });
+  entries.push({asig:Q1.dispensa, grupo:'DISPENSA', aula:null, cuatri:'1.º cuatrimestre'});
+  entries.push({asig:Q2.dispensa, grupo:'DISPENSA', aula:null, cuatri:'2.º cuatrimestre'});
+  document.getElementById('grupos-list').innerHTML = entries.map(e => `
+    <div class="item">
+      <b>${e.asig}</b>
+      <div class="chips"><span class="chip grupo">${e.grupo}</span>${e.aula ? `<span class="chip aula">${e.aula}</span>` : ''}</div>
+      <small>${e.cuatri}</small>
+    </div>`).join('');
+}
+
+renderDays('q1-days', Q1.clases);
+renderDays('q2-days', Q2.clases);
+renderGrupos();
+
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+  });
+});
+</script>
 </body></html>
