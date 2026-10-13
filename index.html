@@ -14,8 +14,8 @@ header{background:linear-gradient(135deg,var(--navy),#0d5a85);color:#fff;padding
 .kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
 h1{font-size:clamp(24px,6vw,34px);margin:6px 0 4px;line-height:1.12}
 .sub{font-size:15px;opacity:.88}
-.tabs{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px;display:flex;gap:8px;max-width:1100px;margin:auto}
-.tab{flex:1;text-align:center;padding:12px 4px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer}
+.tabs{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);padding:10px 12px;display:flex;gap:8px;max-width:1100px;margin:auto;overflow-x:auto}
+.tab{flex:1 0 auto;text-align:center;padding:12px 11px;border-radius:12px;font-weight:800;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--navy);cursor:pointer}
 .tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
 main{max-width:1100px;margin:18px auto 50px;padding:0 14px}
 .panel{display:none}
@@ -60,8 +60,41 @@ main{max-width:1100px;margin:18px auto 50px;padding:0 14px}
 .exam .chips{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
 .chip.left{background:#e6f4ea;color:#1c6b36}
 .chip.warn{background:#fff3d4;color:#755500}
+.plan-nav{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.plan-nav button{border:1px solid var(--line);background:#fff;color:var(--navy);font-weight:900;font-size:18px;border-radius:12px;width:44px;height:44px;cursor:pointer}
+.plan-nav button:disabled{opacity:.3;cursor:default}
+.plan-nav .wk-title{flex:1;text-align:center;font-weight:900;font-size:16px}
+.plan-nav .wk-title small{display:block;font-weight:700;font-size:12px;color:var(--muted)}
+.fase{margin:0 0 10px;padding:11px 14px;border-radius:12px;background:var(--chip-navy-bg);color:var(--navy);font-size:13.5px;line-height:1.45}
+.fase b{display:block}
+.legend{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px}
+.legend .chip{color:#fff}
+.week{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 6px 18px #123c5810}
+.wk-row{display:grid;grid-template-columns:28px repeat(7,minmax(0,1fr))}
+.wk-day{padding:7px 0 6px;text-align:center;font-size:11px;font-weight:800;color:var(--muted);border-left:1px solid var(--line);border-bottom:1px solid var(--line);line-height:1.15}
+.wk-day b{display:block;font-size:15px;color:var(--text)}
+.wk-day.today{background:var(--today)}
+.wk-day.today b{color:#a97b1e}
+.wk-day.off b{color:#b5bfc7}
+.wk-hours,.wk-col{position:relative;height:392px}
+.wk-hours span{position:absolute;right:3px;font-size:9.5px;font-weight:700;color:var(--muted);transform:translateY(-1px)}
+.wk-col{border-left:1px solid var(--line);background:repeating-linear-gradient(to bottom,transparent 0 27px,#eef2f5 27px 28px)}
+.wk-col.today{background-color:#fffbf1}
+.blk{position:absolute;left:1px;right:1px;border:0;border-radius:5px;padding:2px 0;font:inherit;font-size:9.5px;font-weight:900;line-height:1.1;color:#fff;overflow:hidden;cursor:pointer;text-align:center;word-break:break-word}
+.blk.sel{outline:2px solid var(--text);outline-offset:-1px;z-index:2}
+.t-aoc{background:#ca3766}
+.t-eda{background:#073f68}
+.t-forense{background:#0e8a7d}
+.t-otras{background:#7a4fc2}
+.t-clase{background:#cdd6dd;color:#3c4a55}
+.t-examen{background:#e8b64a;color:#2e2100;box-shadow:inset 0 0 0 2px #17232d}
+.t-libre{background:#dff1e3;color:#1c6b36}
+.legend .t-clase{color:#3c4a55}.legend .t-examen{color:#2e2100}.legend .t-libre{color:#1c6b36}
+.plan-detail{margin-top:10px;padding:13px 15px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:14.5px;line-height:1.4;min-height:50px}
+.plan-detail .when{color:var(--navy);font-weight:800;font-size:13px}
+@media(min-width:700px){.blk{font-size:12px}.wk-day{font-size:12.5px}}
 footer{max-width:1100px;margin:auto;padding:0 18px 35px;color:var(--muted);font-size:12px}
-@media(max-width:600px){header{padding:20px 15px 18px}main{padding:0 10px}.tabs{padding:8px 10px}}
+@media(max-width:600px){header{padding:20px 15px 18px}main{padding:0 10px}.tabs{padding:8px;gap:5px;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.tab{font-size:12px;padding:11px 5px}}
 </style></head>
 <body>
 <header><div class="header">
@@ -74,6 +107,7 @@ footer{max-width:1100px;margin:auto;padding:0 18px 35px;color:var(--muted);font-
 <button class="tab" data-panel="q2">2.º cuatri</button>
 <button class="tab" data-panel="grupos">Asignaturas</button>
 <button class="tab" data-panel="examenes">Exámenes</button>
+<button class="tab" data-panel="plan">Plan</button>
 </nav>
 <main>
 <section id="q1" class="panel active">
@@ -94,6 +128,21 @@ footer{max-width:1100px;margin:auto;padding:0 18px 35px;color:var(--muted);font-
 <div class="panel-head"><h2>Exámenes</h2><span class="pill" id="exam-pill"></span></div>
 <div class="note"><b>Ojo:</b> fechas y horas sacadas del calendario provisional en papel (pendiente del V.º B.º de delegados). Las horas de la extraordinaria son las menos fiables. Confirma con el calendario oficial antes de cada examen.</div>
 <div id="exam-list"></div>
+</section>
+<section id="plan" class="panel">
+<div class="panel-head"><h2>Plan de estudio · 1.º cuatri</h2><span class="pill">Prioridad: AOC, luego EDA</span></div>
+<div class="plan-nav">
+<button id="plan-prev" aria-label="Semana anterior">‹</button>
+<div class="wk-title" id="plan-title"></div>
+<button id="plan-next" aria-label="Semana siguiente">›</button>
+</div>
+<div id="plan-fase"></div>
+<div class="legend">
+<span class="chip t-aoc">AOC</span><span class="chip t-eda">EDA</span><span class="chip t-forense">Forense</span><span class="chip t-otras">Otras</span><span class="chip t-clase">Clase</span><span class="chip t-examen">Examen</span><span class="chip t-libre">Libre</span>
+</div>
+<div class="week" id="plan-week"></div>
+<div class="plan-detail" id="plan-detail"></div>
+<div class="note" style="margin-top:14px"><b>Supuestos:</b> clases hasta el jueves 17 de diciembre y martes 8 festivo. Si cambia algo, se ajusta el plan.</div>
 </section>
 </main>
 <footer>Horario personal · UFV · Curso 2026–2027</footer>
@@ -214,6 +263,141 @@ function renderExamenes(){
   }).join('');
 }
 
+const PLAN_H0 = 8, PLAN_HORAS = 14, PLAN_PX = 28, PLAN_SEMANAS = 8;
+const ABREV = {
+  'Estructuras de Datos y Algoritmos':'EDA', 'Arquitectura y Organización de Computadores':'AOC',
+  'Interacción Persona Ordenador':'IPO', 'Inteligencia Artificial I':'IA', 'Ética y Deontología Profesional':'ÉTI',
+  'Informática Forense':'FOR', 'Desarrollo e Integración de Software':'DIS', 'Hacking Ético y Pentesting I':'HACK',
+  'Fundamentos de Ingeniería Informática':'FUND'
+};
+const FASES = [
+  {d:'2026-12-01', h:'2026-12-18', n:'Fase 1 · Con clases', o:'Aprobar Forense el 18 y dejar visto todo el temario de AOC y EDA, con las dudas preguntadas antes de vacaciones.'},
+  {d:'2026-12-19', h:'2027-01-03', n:'Fase 2 · Navidad', o:'Solo AOC por la mañana y EDA por la tarde. Acabar con 3 simulacros de AOC y 2 de EDA hechos.'},
+  {d:'2027-01-04', h:'2027-01-12', n:'Fase 3 · Las otras cuatro', o:'AOC 2 h cada mañana y lista el día 12. Hacking I, IPO, Fundamentos e IA I a diario. EDA 1 h de mantenimiento.'},
+  {d:'2027-01-13', h:'2027-01-19', n:'Fase 4 · Exámenes', o:'Siete exámenes en siete días. AOC y EDA ya vienen preparadas: aquí solo se repasa.'},
+];
+const OTRAS = {
+  hack:['HACK','Hacking Ético I'], ipo:['IPO','Interacción Persona Ordenador'], fund:['FUND','Fundamentos de Ing. Informática'],
+  ia:['IA','Inteligencia Artificial I'], dis:['DIS','Desarrollo e Integración de Software']
+};
+
+function planDia(f, dow){
+  const out = [];
+  const add = (i, t, tipo, ab, txt) => out.push({i, t, tipo, ab, txt});
+  if (f < '2026-12-01' || f > '2027-01-19') return out;
+  EXAMENES[0].lista.filter(e => e.f === f).forEach(e => add(e.i, e.t, 'examen', 'EX ' + (ABREV[e.asig] || ''), 'Examen: ' + e.asig + ' · Aula ' + e.aula));
+
+  if (f <= '2026-12-17') {
+    const festivo = f === '2026-12-08';
+    if (!festivo) Q1.clases.filter(c => c.dia === DIAS[dow-1]).forEach(c => add(c.inicio, c.fin, 'clase', ABREV[c.asig] || 'CL', 'Clase: ' + c.asig + ' · Aula ' + c.aula));
+    const semana = {
+      1:[['10:00','12:00','aoc'],['17:30','19:30','eda']],
+      2:[['10:00','12:30','aoc'],['12:30','14:00','eda'],['19:00','20:00','forense']],
+      3:[['10:00','14:00','aoc'],['17:30','19:30','forense']],
+      4:[['09:00','12:00','eda'],['14:30','17:00','aoc']],
+      5:[['09:00','12:00','aoc'],['15:30','17:30','eda']],
+      6:[['10:00','13:00','aoc'],['16:00','19:00','eda']],
+      7:[['10:00','12:00','forense']],
+    };
+    const txt = {
+      aoc:['AOC','AOC: temario y problemas. Apunta las dudas para preguntarlas antes de vacaciones.'],
+      eda:['EDA','EDA: ver temario e implementar a mano lo visto en clase.'],
+      forense:['FOR','Informática Forense: es el primer examen, el 18 de diciembre.'],
+    };
+    semana[festivo ? 6 : dow].forEach(([i, t, k]) => {
+      if (k === 'eda' && f >= '2026-12-14') k = 'forense';
+      add(i, t, k, txt[k][0], txt[k][1]);
+    });
+    if (f === '2026-12-17') add('19:45','21:00','forense','FOR','Último repaso de Forense. Mañana examen a las 08:00.');
+  } else if (f === '2026-12-18') {
+    add('12:00','20:00','libre','LIBRE','Descanso tras el examen de Forense.');
+  } else if (f <= '2027-01-03') {
+    const especiales = {
+      '2026-12-28':[['09:00','12:00','aoc','SIM AOC','Simulacro 1 de AOC, cronometrado (3 h, como el examen).'],['16:00','19:00','aoc','AOC','Corregir el simulacro y empezar la hoja de errores.']],
+      '2026-12-29':[['09:00','13:00','eda','SIM EDA','Simulacro 1 de EDA.'],['16:00','19:00','aoc','AOC','AOC: solo lo fallado en el simulacro de ayer.']],
+      '2026-12-30':[['09:00','12:00','aoc','SIM AOC','Simulacro 2 de AOC.'],['16:00','19:00','eda','EDA','EDA: corregir el simulacro y repasar los fallos.']],
+      '2027-01-02':[['09:00','12:00','aoc','SIM AOC','Simulacro 3 de AOC. Deberías aprobar con margen; si no, AOC se queda también con la tarde.'],['16:00','19:00','eda','EDA','EDA: hoja de errores.']],
+      '2027-01-03':[['09:00','13:00','eda','SIM EDA','Simulacro 2 de EDA.'],['16:00','19:00','aoc','AOC','AOC: hoja de errores y más problemas del tipo que peor salga.']],
+    };
+    if (['2026-12-24','2026-12-25','2026-12-31','2027-01-01'].includes(f)) add('09:00','20:00','libre','LIBRE','Día libre.');
+    else if (especiales[f]) especiales[f].forEach(b => add(...b));
+    else {
+      const pronto = f <= '2026-12-23';
+      add('09:00','13:00','aoc','AOC', pronto ? 'AOC: problemas por tipos, uno o dos tipos al día, hasta que salgan sin apuntes.' : 'AOC: cerrar lo que quede de temario.');
+      add('16:00','19:00','eda','EDA', pronto ? 'EDA: implementar a mano cada estructura y calcular su complejidad.' : 'EDA: cerrar lo que quede de temario.');
+    }
+  } else if (f <= '2027-01-12') {
+    const reparto = {
+      '2027-01-04':['hack','ipo'], '2027-01-05':['fund','dis'], '2027-01-06':[null,'ia'], '2027-01-07':['ia','hack'], '2027-01-08':['ipo','dis'],
+      '2027-01-09':['fund','ia'], '2027-01-10':[null,'ipo'], '2027-01-11':['fund','ia'], '2027-01-12':['hack','ipo'],
+    }[f];
+    const repaso = f >= '2027-01-11' ? 'Repaso de ' : '';
+    if (reparto[0] === null) add('09:00','12:00','aoc','SIM AOC','Simulacro de AOC, cronometrado.');
+    else {
+      add('09:00','11:00','aoc','AOC','AOC: problemas y hoja de errores. Lo primero del día.');
+      add('11:30','14:00','otras',OTRAS[reparto[0]][0],repaso + OTRAS[reparto[0]][1] + '.');
+    }
+    add('16:00','18:30','otras',OTRAS[reparto[1]][0],repaso + OTRAS[reparto[1]][1] + '.');
+    add('18:45','19:45','eda','EDA','EDA: hoja de errores y un ejercicio, para no perderla.');
+  } else {
+    ({
+      '2027-01-13':[['12:00','14:00','otras','IPO','Repaso de IPO antes del examen de la tarde.'],['19:00','21:00','otras','FUND','Repaso de Fundamentos para mañana.']],
+      '2027-01-14':[['13:00','14:30','otras','IA','Repaso de IA I antes del examen de la tarde.'],['19:00','20:00','aoc','AOC','AOC: solo la hoja de errores, 1 h, y a dormir.']],
+      '2027-01-15':[['14:00','20:00','libre','LIBRE','Tarde libre. Descansa.']],
+      '2027-01-16':[['09:00','13:00','eda','SIM EDA','Simulacro de EDA.'],['16:00','19:00','otras','DIS','DIS.']],
+      '2027-01-17':[['09:30','13:00','otras','DIS','DIS.'],['16:00','19:00','eda','EDA','EDA: cierre definitivo.']],
+      '2027-01-18':[['09:30','13:00','otras','DIS','Repaso de DIS.'],['20:30','22:00','libre','LIBRE','Nada de EDA esta noche: cena y a dormir.']],
+    }[f] || []).forEach(b => add(...b));
+  }
+  return out;
+}
+
+let planSem = 0, planBloques = [];
+function pintaPlan(){
+  const hnum = s => { const [h, m] = s.split(':').map(Number); return h + m / 60; };
+  const ymd = d => `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  const hoy = ymd(new Date());
+  const dias = [...Array(7)].map((_, k) => new Date(2026, 10, 30 + planSem * 7 + k));
+  const f0 = ymd(dias[0]), f6 = ymd(dias[6]);
+  document.getElementById('plan-title').innerHTML = `${dias[0].getDate()} ${MESES[dias[0].getMonth()]} – ${dias[6].getDate()} ${MESES[dias[6].getMonth()]}<small>Semana ${planSem + 1} de ${PLAN_SEMANAS}</small>`;
+  document.getElementById('plan-prev').disabled = planSem === 0;
+  document.getElementById('plan-next').disabled = planSem === PLAN_SEMANAS - 1;
+  document.getElementById('plan-fase').innerHTML = FASES.filter(x => x.d <= f6 && x.h >= f0).map(x => `<div class="fase"><b>${x.n}</b>${x.o}</div>`).join('');
+  planBloques = [];
+  const horas = [...Array(PLAN_HORAS)].map((_, k) => `<span style="top:${k * PLAN_PX + 2}px">${PLAN_H0 + k}</span>`).join('');
+  const cab = dias.map(d => {
+    const f = ymd(d), fuera = f < '2026-12-01' || f > '2027-01-19';
+    return `<div class="wk-day${f === hoy ? ' today' : ''}${fuera ? ' off' : ''}">${'LMXJVSD'[(d.getDay() + 6) % 7]}<b>${d.getDate()}</b></div>`;
+  }).join('');
+  const cols = dias.map(d => {
+    const f = ymd(d), dow = (d.getDay() + 6) % 7 + 1;
+    const bl = planDia(f, dow).map(b => {
+      const idx = planBloques.push({...b, d}) - 1;
+      const top = (hnum(b.i) - PLAN_H0) * PLAN_PX, alto = (hnum(b.t) - hnum(b.i)) * PLAN_PX - 1;
+      return `<button class="blk t-${b.tipo}" data-b="${idx}" style="top:${top}px;height:${alto}px">${b.ab}</button>`;
+    }).join('');
+    return `<div class="wk-col${f === hoy ? ' today' : ''}">${bl}</div>`;
+  }).join('');
+  document.getElementById('plan-week').innerHTML = `<div class="wk-row"><div></div>${cab}</div><div class="wk-row"><div class="wk-hours">${horas}</div>${cols}</div>`;
+  document.getElementById('plan-detail').innerHTML = 'Toca un bloque para ver qué toca hacer.';
+}
+
+function renderPlan(){
+  const hoy = new Date(); hoy.setHours(0,0,0,0);
+  planSem = Math.min(PLAN_SEMANAS - 1, Math.max(0, Math.floor((hoy - new Date(2026, 10, 30)) / (7 * 86400000))));
+  pintaPlan();
+  document.getElementById('plan-prev').addEventListener('click', () => { if (planSem > 0) { planSem--; pintaPlan(); } });
+  document.getElementById('plan-next').addEventListener('click', () => { if (planSem < PLAN_SEMANAS - 1) { planSem++; pintaPlan(); } });
+  document.getElementById('plan-week').addEventListener('click', ev => {
+    const el = ev.target.closest('.blk');
+    if (!el) return;
+    document.querySelectorAll('.blk.sel').forEach(x => x.classList.remove('sel'));
+    el.classList.add('sel');
+    const b = planBloques[el.dataset.b];
+    document.getElementById('plan-detail').innerHTML = `<div class="when">${DIAS_SEMANA[b.d.getDay()]} ${b.d.getDate()} ${MESES[b.d.getMonth()]} · ${b.i}–${b.t}</div>${b.txt}`;
+  });
+}
+
 function todayDiaName(){
   const idx = new Date().getDay();
   return idx>=1 && idx<=5 ? DIAS[idx-1] : null;
@@ -267,6 +451,7 @@ renderDays('q1-days', Q1.clases);
 renderDays('q2-days', Q2.clases);
 renderGrupos();
 renderExamenes();
+renderPlan();
 
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
